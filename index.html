@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinScan AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><img src="logo.png"></div>
+      <h1>FinScan AI</h1>
+    </div>
+    <span class="sidebar-section-label">Main</span>
+    <nav>
+      <a href="index.html"><i class="ti ti-layout-dashboard nav-icon"></i>Dashboard</a>
+<a href="analytics.html"><i class="ti ti-chart-bar nav-icon"></i>Analytics</a>
+<a href="salary.html"><i class="ti ti-briefcase nav-icon"></i>Salary Compare</a>
+<a href="savings.html"><i class="ti ti-pig-money nav-icon"></i>Emergency Savings</a>
+<a href="coach.html"><i class="ti ti-robot nav-icon"></i>AI Coach</a>
+<a href="import.html"><i class="ti ti-file-import nav-icon"></i>Import Data</a>
+<a href="services.html"><i class="ti ti-sparkles nav-icon"></i>Services</a>
+    </nav>
+    <button class="ai-open-btn" onclick="openAIWindow()">
+      <i class="ti ti-robot"></i> AI Coach
+    </button>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Dashboard</h1>
+        <p>Track your subscriptions and daily spending</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-badge">
+          <span class="dot"></span>Live sync
+        </div>
+        <button id="addExpenseBtn">
+          <i class="ti ti-plus"></i> Add Expense
+        </button>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="card stat-card">
+        <div class="stat-card-label"><i class="ti ti-wallet"></i> Total Spending</div>
+        <div class="stat-card-value" id="totalSpending">$0</div>
+        <div class="stat-card-sub">
+          <span class="stat-badge up">↑ 4.2%</span> vs last month
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-card-label"><i class="ti ti-repeat"></i> Subscriptions</div>
+        <div class="stat-card-value" id="subscriptionCount">0</div>
+        <div class="stat-card-sub">
+          <span class="stat-badge neutral">Active</span> recurring bills
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-card-label"><i class="ti ti-trending-up"></i> Largest Category</div>
+        <div class="stat-card-value" id="topCategory" style="font-size:20px;letter-spacing:-0.3px;padding-top:4px;">—</div>
+        <div class="stat-card-sub">
+          <span class="stat-badge down">↑ 12%</span> above average
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="card">
+        <div class="card-header">
+          <h2>Expenses</h2>
+          <span class="card-header-badge" id="expenseCountBadge">0 items</span>
+        </div>
+        <div id="expensesContainer"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>AI Recommendations</h2>
+          <span class="card-header-badge">3 insights</span>
+        </div>
+        <div class="recommendation">
+          <i class="ti ti-cut rec-icon"></i>
+          Cancel duplicate streaming subscriptions to save ~$29/mo.
+        </div>
+        <div class="recommendation">
+          <i class="ti ti-salad rec-icon"></i>
+          Reduce fast food spending by 15% to save ~$32/mo.
+        </div>
+        <div class="recommendation">
+          <i class="ti ti-coffee rec-icon"></i>
+          Coffee spending is 22% above your peer average.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="aiWindow" class="ai-window">
+    <div class="ai-content">
+      <div class="ai-header">
+        <div class="ai-header-left">
+          <div class="ai-avatar"><i class="ti ti-robot"></i></div>
+          <div class="ai-header-title">
+            <h2>FinScan AI Coach</h2>
+            <p><span class="ai-status-dot"></span> Online &amp; ready</p>
+          </div>
+        </div>
+        <button onclick="closeAIWindow()"><i class="ti ti-x"></i></button>
+      </div>
+      <div id="aiMessages" class="ai-messages">
+        <div class="bot-message">Hello! I'm your personal finance AI coach. Ask me about your spending habits, subscriptions, or savings goals.</div>
+      </div>
+      <div class="ai-input-area">
+        <input type="text" id="aiInput" placeholder="Ask anything about your finances...">
+        <button onclick="sendAIMessage()"><i class="ti ti-send"></i> Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="expenses.js"></script>
+  <script src="data.js"></script>
+  <script src="navigation.js"></script>
+  <script src="ai.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

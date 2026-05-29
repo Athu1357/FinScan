@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Import Data - FinScan AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><img src="logo.png"></div>
+      <h1>FinScan AI</h1>
+    </div>
+    <span class="sidebar-section-label">Main</span>
+    <nav>
+      <a href="index.html"><i class="ti ti-layout-dashboard nav-icon"></i>Dashboard</a>
+      <a href="analytics.html"><i class="ti ti-chart-bar nav-icon"></i>Analytics</a>
+      <a href="salary.html"><i class="ti ti-briefcase nav-icon"></i>Salary Compare</a>
+      <a href="savings.html"><i class="ti ti-pig-money nav-icon"></i>Emergency Savings</a>
+      <a href="coach.html"><i class="ti ti-robot nav-icon"></i>AI Coach</a>
+      <a href="import.html"><i class="ti ti-file-import nav-icon"></i>Import Data</a>
+      <a href="services.html"><i class="ti ti-sparkles nav-icon"></i>Services</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Import Data</h1>
+        <p>Upload your spreadsheet to power the entire app with real data</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-badge">
+          <span class="dot"></span>Ready to import
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">
+        <h2>Required Spreadsheet Format</h2>
+        <span class="card-header-badge">Template</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Your file must have these exact column headers in row 1:</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
+        <div style="background:var(--navy-elevated);border:1px solid var(--navy-border);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Column A</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-bright);">Date</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">e.g. 2025-05-01</div>
+        </div>
+        <div style="background:var(--navy-elevated);border:1px solid var(--navy-border);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Column B</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-bright);">Category</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">e.g. Food, Rent</div>
+        </div>
+        <div style="background:var(--navy-elevated);border:1px solid var(--navy-border);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Column C</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-bright);">Amount</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">e.g. 49.99</div>
+        </div>
+        <div style="background:var(--navy-elevated);border:1px solid var(--navy-border);border-radius:10px;padding:12px;">
+          <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Column D</div>
+          <div style="font-size:14px;font-weight:600;color:var(--accent-blue-bright);">Description</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">e.g. Netflix</div>
+        </div>
+      </div>
+      <button class="import-download-btn" onclick="downloadTemplate()">
+        <i class="ti ti-download"></i> Download Template
+      </button>
+    </div>
+
+    <div class="import-dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept=".xlsx,.csv" style="display:none" onchange="handleFile(event)">
+      <div class="import-dropzone-icon"><i class="ti ti-cloud-upload"></i></div>
+      <div class="import-dropzone-title">Drop your file here or click to browse</div>
+      <div class="import-dropzone-sub">Supports .xlsx and .csv files</div>
+    </div>
+
+    <!-- Reset All Data -->
+    <div class="card" style="margin-top:16px;border-color:rgba(239,68,68,0.2);">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#f87171;flex-shrink:0;">
+            <i class="ti ti-trash"></i>
+          </div>
+          <div>
+            <div style="font-size:15px;font-weight:600;color:var(--text-primary);">Reset All Data</div>
+            <div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">Permanently clears all imported expenses and resets the app.</div>
+          </div>
+        </div>
+        <button onclick="resetAllData()" style="flex-shrink:0;padding:10px 18px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:10px;color:#f87171;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.2s;" onmouseover="this.style.background='rgba(239,68,68,0.2)'" onmouseout="this.style.background='rgba(239,68,68,0.1)'">
+          <i class="ti ti-trash"></i> Reset All Data
+        </button>
+      </div>
+    </div>
+
+    <div id="previewSection" style="display:none;">
+      <div class="card" style="margin-top:16px;">
+        <div class="card-header">
+          <h2>Preview</h2>
+          <span class="card-header-badge" id="rowCountBadge">0 rows</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="import-table" id="previewTable"></table>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <button class="import-confirm-btn" onclick="confirmImport()">
+            <i class="ti ti-check"></i> Confirm Import
+          </button>
+          <button class="import-cancel-btn" onclick="cancelImport()">
+            <i class="ti ti-x"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="importSuccess" style="display:none;">
+      <div class="card" style="margin-top:16px;border-color:rgba(74,222,128,0.3);">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#4ade80;flex-shrink:0;">
+            <i class="ti ti-check"></i>
+          </div>
+          <div>
+            <div style="font-size:15px;font-weight:600;color:var(--text-primary);">Import successful!</div>
+            <div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">All tabs have been updated with your real data.</div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:8px;">
+            <a href="index.html" class="import-confirm-btn" style="text-decoration:none;">
+              <i class="ti ti-layout-dashboard"></i> Go to Dashboard
+            </a>
+            <a href="analytics.html" class="import-confirm-btn" style="text-decoration:none;background:var(--navy-elevated);color:var(--text-primary);">
+              <i class="ti ti-chart-bar"></i> View Analytics
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="expenses.js"></script>
+  <script src="data.js"></script>
+  <script src="import.js"></script>
+  <script>
+    function resetAllData() {
+      if (!confirm('Are you sure you want to reset all data? This cannot be undone.')) return;
+      localStorage.removeItem('finScanData');
+      localStorage.removeItem('finScanImported');
+      localStorage.removeItem('expenses');
+      document.getElementById('importSuccess').style.display = 'none';
+      document.getElementById('previewSection').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+      alert('All data has been reset.');
+    }
+  </script>
+</body>
+</html>

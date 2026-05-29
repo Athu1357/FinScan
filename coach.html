@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Coach - FinScan AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><img src="logo.png"></div>
+      <h1>FanScan AI</h1>
+    </div>
+    <span class="sidebar-section-label">Main</span>
+    <nav>
+      <a href="index.html"><i class="ti ti-layout-dashboard nav-icon"></i>Dashboard</a>
+<a href="analytics.html"><i class="ti ti-chart-bar nav-icon"></i>Analytics</a>
+<a href="salary.html"><i class="ti ti-briefcase nav-icon"></i>Salary Compare</a>
+<a href="savings.html"><i class="ti ti-pig-money nav-icon"></i>Emergency Savings</a>
+<a href="coach.html"><i class="ti ti-robot nav-icon"></i>AI Coach</a>
+<a href="import.html"><i class="ti ti-file-import nav-icon"></i>Import Data</a>
+<a href="services.html"><i class="ti ti-sparkles nav-icon"></i>Services</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>AI Coach</h1>
+        <p>Your personal finance assistant — ask anything</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-badge">
+          <span class="dot"></span>Online &amp; ready
+        </div>
+      </div>
+    </div>
+
+    <div class="gemini-banner">
+      <div class="gemini-logo-slot">
+        <img src="gemini-logo.png" alt="Gemini" width="32" height="32">
+      </div>
+      <div class="gemini-banner-text">
+        <span class="gemini-banner-title">Powered by Gemini AI</span>
+        <span class="gemini-banner-sub">Google Gemini is analyzing your finances in real time</span>
+      </div>
+      <span class="gemini-banner-badge">Live</span>
+    </div>
+
+    <div class="coach-suggestions">
+      <button class="suggestion-chip" onclick="fillPrompt('How can I reduce my monthly spending?')">
+        <i class="ti ti-trending-down"></i> Reduce spending
+      </button>
+      <button class="suggestion-chip" onclick="fillPrompt('Am I saving enough for an emergency fund?')">
+        <i class="ti ti-pig-money"></i> Emergency fund
+      </button>
+      <button class="suggestion-chip" onclick="fillPrompt('Should I cancel any of my subscriptions?')">
+        <i class="ti ti-cut"></i> Review subscriptions
+      </button>
+      <button class="suggestion-chip" onclick="fillPrompt('How does my salary compare to my spending?')">
+        <i class="ti ti-chart-bar"></i> Salary vs spend
+      </button>
+    </div>
+
+    <div class="coach-shell">
+      <div class="coach-messages" id="coachMessages">
+        <div class="coach-bot-row">
+          <div class="coach-avatar"><i class="ti ti-robot"></i></div>
+          <div class="coach-bubble bot">
+            Hi! I'm your FinScan AI Coach powered by Gemini. I can see your current expenses and help you make smarter financial decisions. What would you like to work on today?
+          </div>
+        </div>
+      </div>
+      <div class="coach-input-bar">
+        <input
+          type="text"
+          id="coachInput"
+          class="coach-input"
+          placeholder="Ask anything about your finances..."
+          onkeydown="if(event.key==='Enter') sendCoachMessage()"
+        >
+        <button class="coach-send-btn" onclick="sendCoachMessage()">
+          <i class="ti ti-send"></i>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="expenses.js"></script>
+  <script src="data.js"></script>
+  <script src="ai-coach.js"></script>
+</body>
+</html>

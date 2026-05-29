@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services - FinScan AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"><img src="logo.png"></div>
+      <h1>FinScan AI</h1>
+    </div>
+    <span class="sidebar-section-label">Main</span>
+    <nav>
+      <a href="index.html"><i class="ti ti-layout-dashboard nav-icon"></i>Dashboard</a>
+      <a href="analytics.html"><i class="ti ti-chart-bar nav-icon"></i>Analytics</a>
+      <a href="salary.html"><i class="ti ti-briefcase nav-icon"></i>Salary Compare</a>
+      <a href="savings.html"><i class="ti ti-pig-money nav-icon"></i>Emergency Savings</a>
+      <a href="coach.html"><i class="ti ti-robot nav-icon"></i>AI Coach</a>
+      <a href="import.html"><i class="ti ti-file-import nav-icon"></i>Import Data</a>
+      <a href="services.html" class="active"><i class="ti ti-sparkles nav-icon"></i>Services</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1>Services</h1>
+        <p>AI-powered financial tools for clarity and control</p>
+      </div>
+    </div>
+
+    <div class="services-grid" style="margin-bottom:20px;">
+      <div class="service-card">
+        <div class="service-card-icon stat-icon blue"><i class="ti ti-chart-dots"></i></div>
+        <h3>Expense Intelligence</h3>
+        <p>Automatically categorize spending using AI. Instead of manually sorting through bank statements and guessing where your money went, this tool acts as a smart sorting system.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon stat-icon purple"><i class="ti ti-robot"></i></div>
+        <h3>AI Financial Coach</h3>
+        <p>Get instant financial advice anytime. This functions as an on-demand virtual advisor. Rather than waiting for a scheduled meeting with a human consultant, you can ask this chatbot direct questions whenever you need clarity.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon stat-icon cyan"><i class="ti ti-file-text"></i></div>
+        <h3>Document Analyzer</h3>
+        <p>Extract insights from uploaded financial files. This tool saves you from reading through dense walls of text and numbers. Upload complex financial paperwork—like tax forms or bank statements—and the AI will instantly extract key figures and summarize the main takeaways.</p>
+      </div>
+
+    </div>
+
+    <div class="how-it-works" style="margin-bottom:20px;">
+      <h2>How It Works</h2>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <h3>Connect Data</h3>
+          <p>Upload or link financial data securely.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <h3>AI Analysis</h3>
+          <p>AI identifies patterns and insights.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <h3>Get Results</h3>
+          <p>Receive actionable recommendations.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>FAQ</h2>
+      <div class="faq-item" id="faq1">
+        <button class="faq-question" onclick="toggleFaq('faq1')">Is my data secure?<i class="ti ti-plus"></i></button>
+        <div class="faq-answer">Yes — everything is encrypted or stored locally.</div>
+      </div>
+      <div class="faq-item" id="faq2">
+        <button class="faq-question" onclick="toggleFaq('faq2')">Does FanScan use AI?<i class="ti ti-plus"></i></button>
+        <div class="faq-answer">Yes, AI powers analysis and recommendations.</div>
+      </div>
+      <div class="faq-item" id="faq3">
+        <button class="faq-question" onclick="toggleFaq('faq3')">Can I upload documents?<i class="ti ti-plus"></i></button>
+        <div class="faq-answer">Yes, via the Document Analyzer service.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleFaq(id) {
+      const item = document.getElementById(id);
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+</html>
