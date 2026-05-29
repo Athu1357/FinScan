@@ -6,6 +6,158 @@
   <title>Salary Compare - FinScan AI</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    /* ── Total Comp Feature ─────────────────────────────── */
+    .comp-section { margin-top: 16px; }
+
+    .comp-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .comp-total-pill {
+      font-size: 12px;
+      font-weight: 600;
+      color: #4ade80;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.25);
+      border-radius: 20px;
+      padding: 4px 12px;
+      letter-spacing: 0.03em;
+    }
+
+    /* Editable comp rows */
+    .comp-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comp-row {
+      display: grid;
+      grid-template-columns: 26px 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--navy-elevated, rgba(255,255,255,0.04));
+      border: 1px solid var(--navy-border, rgba(255,255,255,0.08));
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+    .comp-row:focus-within {
+      border-color: rgba(59,130,246,0.35);
+    }
+
+    .comp-row-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .comp-row-label {
+      font-size: 13px;
+      color: var(--text-secondary, #94a3b8);
+    }
+
+    .comp-row-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary, #e2e8f0);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: right;
+      width: 110px;
+      caret-color: #60a5fa;
+    }
+    .comp-row-input::placeholder { color: var(--text-muted, #4b5563); }
+
+    .comp-row-pct {
+      font-size: 11px;
+      color: var(--text-muted, #4b5563);
+      min-width: 38px;
+      text-align: right;
+    }
+
+    /* Stacked bar */
+    .comp-bar-wrap {
+      margin-top: 18px;
+    }
+    .comp-bar-track {
+      display: flex;
+      height: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+      gap: 2px;
+    }
+    .comp-bar-seg {
+      height: 100%;
+      transition: width 0.5s cubic-bezier(.4,0,.2,1);
+      border-radius: 2px;
+    }
+    .comp-bar-labels {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .comp-bar-label-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted, #4b5563);
+    }
+    .comp-bar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* vs market card */
+    .comp-vs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .comp-vs-card {
+      padding: 14px;
+      background: var(--navy-elevated, rgba(255,255,255,0.04));
+      border: 1px solid var(--navy-border, rgba(255,255,255,0.08));
+      border-radius: 12px;
+      text-align: center;
+    }
+    .comp-vs-card h4 {
+      font-size: 11px;
+      color: var(--text-muted, #4b5563);
+      margin: 0 0 6px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .comp-vs-card .comp-vs-val {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary, #e2e8f0);
+      letter-spacing: -0.02em;
+    }
+    .comp-vs-card .comp-vs-sub {
+      font-size: 11px;
+      color: var(--text-muted, #4b5563);
+      margin-top: 3px;
+    }
+    .comp-vs-positive { color: #4ade80 !important; }
+    .comp-vs-negative { color: #f87171 !important; }
+  </style>
 </head>
 <body>
 
@@ -17,12 +169,12 @@
     <span class="sidebar-section-label">Main</span>
     <nav>
       <a href="index.html"><i class="ti ti-layout-dashboard nav-icon"></i>Dashboard</a>
-<a href="analytics.html"><i class="ti ti-chart-bar nav-icon"></i>Analytics</a>
-<a href="salary.html"><i class="ti ti-briefcase nav-icon"></i>Salary Compare</a>
-<a href="savings.html"><i class="ti ti-pig-money nav-icon"></i>Emergency Savings</a>
-<a href="coach.html"><i class="ti ti-robot nav-icon"></i>AI Coach</a>
-<a href="import.html"><i class="ti ti-file-import nav-icon"></i>Import Data</a>
-<a href="services.html"><i class="ti ti-sparkles nav-icon"></i>Services</a>
+      <a href="analytics.html"><i class="ti ti-chart-bar nav-icon"></i>Analytics</a>
+      <a href="salary.html"><i class="ti ti-briefcase nav-icon"></i>Salary Compare</a>
+      <a href="savings.html"><i class="ti ti-pig-money nav-icon"></i>Emergency Savings</a>
+      <a href="coach.html"><i class="ti ti-robot nav-icon"></i>AI Coach</a>
+      <a href="import.html"><i class="ti ti-file-import nav-icon"></i>Import Data</a>
+      <a href="services.html"><i class="ti ti-sparkles nav-icon"></i>Services</a>
     </nav>
     <button class="ai-open-btn" onclick="openAIWindow()"><i class="ti ti-robot"></i> AI Coach</button>
   </aside>
@@ -103,6 +255,54 @@
       </div>
     </div>
 
+    <!-- ── Total Comp Breakdown ─────────────────────────────── -->
+    <div class="comp-section">
+      <div class="card">
+        <div class="comp-header-row">
+          <div class="card-header" style="margin:0;padding:0;border:none;">
+            <h2 style="margin:0;">Total Compensation</h2>
+          </div>
+          <div class="comp-total-pill" id="compTotalPill">$0 / yr</div>
+        </div>
+
+        <div class="comp-rows" id="compRows">
+          <!-- rows injected by JS -->
+        </div>
+
+        <!-- Stacked visual bar -->
+        <div class="comp-bar-wrap">
+          <div class="comp-bar-track" id="compBarTrack">
+            <!-- segments injected -->
+          </div>
+          <div class="comp-bar-labels" id="compBarLabels"></div>
+        </div>
+
+        <!-- vs market benchmarks -->
+        <div style="margin-top:20px;">
+          <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:10px;">
+            vs. Market Benchmarks (Senior SWE)
+          </div>
+          <div class="comp-vs-grid">
+            <div class="comp-vs-card">
+              <h4>Median TTC</h4>
+              <div class="comp-vs-val">$198k</div>
+              <div class="comp-vs-sub">National</div>
+            </div>
+            <div class="comp-vs-card">
+              <h4>75th Pctile</h4>
+              <div class="comp-vs-val">$265k</div>
+              <div class="comp-vs-sub">National</div>
+            </div>
+            <div class="comp-vs-card">
+              <h4>Your TTC vs Median</h4>
+              <div class="comp-vs-val comp-vs-positive" id="compVsMedian">—</div>
+              <div class="comp-vs-sub" id="compVsMedianSub">Enter values above</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <div id="aiWindow" class="ai-window">
@@ -131,5 +331,127 @@
   <script src="data.js"></script>
   <script src="navigation.js"></script>
   <script src="ai.js"></script>
+
+  <script>
+  // ── Total Comp Breakdown ────────────────────────────────────────────────────
+  const COMP_ITEMS = [
+    { key: 'base',     label: 'Base Salary',        icon: 'ti-coin',          color: '#60a5fa', iconBg: 'rgba(59,130,246,0.15)',  default: 128000 },
+    { key: 'bonus',    label: 'Annual Bonus',        icon: 'ti-gift',          color: '#4ade80', iconBg: 'rgba(74,222,128,0.12)',  default: 15000  },
+    { key: 'equity',   label: 'Equity / RSUs (yr)',  icon: 'ti-chart-line',    color: '#facc15', iconBg: 'rgba(250,204,21,0.12)',  default: 40000  },
+    { key: 'health',   label: 'Health Benefits',     icon: 'ti-heart-rate-monitor', color: '#f87171', iconBg: 'rgba(248,113,113,0.12)', default: 8000   },
+    { key: '401k',     label: '401k Match',          icon: 'ti-pig-money',     color: '#a78bfa', iconBg: 'rgba(167,139,250,0.12)', default: 6400   },
+    { key: 'other',    label: 'Other Perks',         icon: 'ti-sparkles',      color: '#fb923c', iconBg: 'rgba(251,146,60,0.12)',  default: 3000   },
+  ];
+
+  const MARKET_MEDIAN = 198000;
+
+  function fmt(n) {
+    if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
+    if (n >= 1000)    return '$' + Math.round(n/1000) + 'k';
+    return '$' + n;
+  }
+
+  function parseVal(str) {
+    const cleaned = str.replace(/[$,k]/gi, '');
+    let n = parseFloat(cleaned);
+    if (isNaN(n)) return 0;
+    if (/k/i.test(str)) n *= 1000;
+    return Math.max(0, n);
+  }
+
+  function buildRows() {
+    const container = document.getElementById('compRows');
+    container.innerHTML = '';
+    COMP_ITEMS.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'comp-row';
+      row.innerHTML = `
+        <div class="comp-row-icon" style="background:${item.iconBg};">
+          <i class="ti ${item.icon}" style="color:${item.color};font-size:13px;"></i>
+        </div>
+        <span class="comp-row-label">${item.label}</span>
+        <input
+          class="comp-row-input"
+          data-key="${item.key}"
+          type="text"
+          value="${fmt(item.default)}"
+          placeholder="$0"
+        >
+        <span class="comp-row-pct" id="pct-${item.key}">—</span>
+      `;
+      container.appendChild(row);
+    });
+
+    container.querySelectorAll('.comp-row-input').forEach(inp => {
+      inp.addEventListener('input', recalc);
+      inp.addEventListener('blur', function() {
+        const v = parseVal(this.value);
+        this.value = v ? fmt(v) : '';
+        recalc();
+      });
+    });
+
+    recalc();
+  }
+
+  function recalc() {
+    const vals = {};
+    document.querySelectorAll('.comp-row-input').forEach(inp => {
+      vals[inp.dataset.key] = parseVal(inp.value);
+    });
+
+    const total = Object.values(vals).reduce((s, v) => s + v, 0);
+
+    // pill
+    document.getElementById('compTotalPill').textContent =
+      total ? fmt(total) + ' / yr' : '$0 / yr';
+
+    // pct labels
+    COMP_ITEMS.forEach(item => {
+      const el = document.getElementById('pct-' + item.key);
+      if (el) el.textContent = total ? Math.round((vals[item.key] / total) * 100) + '%' : '—';
+    });
+
+    // bar
+    const track  = document.getElementById('compBarTrack');
+    const legend = document.getElementById('compBarLabels');
+    track.innerHTML  = '';
+    legend.innerHTML = '';
+
+    COMP_ITEMS.forEach(item => {
+      const pct = total ? (vals[item.key] / total) * 100 : 0;
+      if (pct < 0.5) return;
+      const seg = document.createElement('div');
+      seg.className = 'comp-bar-seg';
+      seg.style.cssText = `width:${pct}%;background:${item.color};flex-shrink:0;`;
+      track.appendChild(seg);
+
+      legend.innerHTML += `
+        <div class="comp-bar-label-item">
+          <div class="comp-bar-dot" style="background:${item.color};"></div>
+          ${item.label}
+        </div>`;
+    });
+
+    // vs market
+    const vsEl  = document.getElementById('compVsMedian');
+    const subEl = document.getElementById('compVsMedianSub');
+    if (total > 0) {
+      const diff = total - MARKET_MEDIAN;
+      const pct  = Math.round(Math.abs(diff) / MARKET_MEDIAN * 100);
+      vsEl.textContent = (diff >= 0 ? '+' : '') + fmt(diff);
+      vsEl.className   = 'comp-vs-val ' + (diff >= 0 ? 'comp-vs-positive' : 'comp-vs-negative');
+      subEl.textContent = diff >= 0
+        ? `${pct}% above median`
+        : `${pct}% below median`;
+    } else {
+      vsEl.textContent  = '—';
+      subEl.textContent = 'Enter values above';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', buildRows);
+  </script>
+
 </body>
 </html>
