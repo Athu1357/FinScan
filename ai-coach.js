@@ -51,7 +51,7 @@ Reply in 2–4 sentences. Be specific, actionable, and encouraging. No bullet po
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': window.location.href,
+        'HTTP-Referer': 'https://athu1357.github.io/FinScan/',
         'X-Title': 'FinScan AI'
       },
       body: JSON.stringify({
